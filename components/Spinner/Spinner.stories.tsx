@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Page from 'tmp-shared/components/Page';
+import Page from 'shared/components/Page';
 
 import Spinner from './Spinner';
 
