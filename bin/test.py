@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import subprocess
+import typing
 import pathlib
 
 SAAS_REPO='https://github.com/determined-ai/saas'
@@ -17,9 +18,9 @@ users = [
 def print_purple(skk): print("\033[93m {}\033[00m" .format(skk))
 
 
-def run(command):
+def run(command, cwd: typing.Optional[pathlib.Path] = None):
     print_purple(f'{command}')
-    subprocess.run(command, check=True, shell=True)
+    subprocess.run(command, cwd=cwd, check=True, shell=True)
 
 
 def has_output(command):
@@ -47,16 +48,19 @@ def get_current_hash():
 
 def setup_user(user, sm_hash: str):
     clone_dir = '/tmp' / pathlib.Path(user['name'])
-    web_dir = user['web_dir']
+    web_dir = clone_dir / user['web_dir']
     run(f'rm -rf {clone_dir}; git clone {user["repo"]} {clone_dir} --recurse-submodules')
-    run(f'cd {clone_dir} && git checkout master && git pull')
-    run(f'cd {clone_dir}/{web_dir}/{SM_DIR} && git checkout {sm_hash}')
+    run(f'git checkout master && git pull', cwd=clone_dir)
+    run(f'git checkout {sm_hash}', cwd=web_dir/SM_DIR)
 
 
 def test(sm_hash: str):
     for user in users:
         setup_user(user, sm_hash)
-        run(f'cd /tmp/{user["name"]}/{user["web_dir"]} && make build')
+        clone_dir = '/tmp' / pathlib.Path(user['name'])
+        web_dir = clone_dir / user['web_dir']
+        for target in ['get-deps', 'check', 'build', 'test']:
+            run(f'make {target}', cwd=web_dir)
 
 
 if __name__ == '__main__':
