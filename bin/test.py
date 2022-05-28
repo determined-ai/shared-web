@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import subprocess
 import typing
+import sys
 import pathlib
 
 SAAS_REPO='https://github.com/determined-ai/saas'
@@ -64,4 +65,6 @@ def test(sm_hash: str):
 
 
 if __name__ == '__main__':
-    test(get_current_hash())
+    # get current git hash from cli args as first argument through sys.args if one is provided
+    sm_hash = sys.argv[1] if len(sys.argv) > 1 else get_current_hash()
+    test(sm_hash)
