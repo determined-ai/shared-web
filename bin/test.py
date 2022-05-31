@@ -9,7 +9,7 @@ CORE_REPO='https://github.com/determined-ai/determined'
 SM_DIR = 'src/shared'
 
 users = [
-    {'name': 'saas', 'repo': SAAS_REPO, 'web_dir': 'web'},
+    # {'name': 'saas', 'repo': SAAS_REPO, 'web_dir': 'web'},
     {'name': 'core', 'repo': CORE_REPO, 'web_dir': 'webui/react'},
 ]
 
