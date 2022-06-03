@@ -18,13 +18,7 @@ commands:
 
 # Define the jobs
 jobs:
-  build:
-    docker:
-      - image: cimg/node:16.14
-    steps:
-      - checkout
-      - run: echo "this is the build job"
-  test:
+  test-repo-integration:
     docker:
       - image: cimg/node:16.14
     steps:
@@ -34,7 +28,6 @@ jobs:
 
 # Orchestrate our job run sequence
 workflows:
-  build_and_test:
+  test:
     jobs:
-      - build
-      - test
+      - test-repo-integration
