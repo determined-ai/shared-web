@@ -30,7 +30,7 @@ jobs:
     steps:
       - checkout
       - install-python
-      - run: make test
+      - run: ./bin/test.py --repos core
 
 # Orchestrate our job run sequence
 workflows:
