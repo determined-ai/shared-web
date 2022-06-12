@@ -113,6 +113,14 @@ export class Storage {
     this.keys().forEach(key => this.remove(key));
   }
 
+  getRecords(): any[] {
+    return this.keys().map(key => ({
+      'storage_path': this.computeKey(''),
+      'key': key,
+      'value': this.get(key)
+    }))
+  }
+
   private computeKey(key: string): string {
     return [ ...this.pathKeys, key ].join(this.delimiter);
   }
