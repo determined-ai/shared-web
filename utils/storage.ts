@@ -77,7 +77,7 @@ export class Storage {
   set<T>(key: string, value: T, storagePath?: string): void {
     if (value == null) throw new Error('Cannot set to a null or undefined value.');
     if (value instanceof Set) throw new Error('Convert the value to an Array before setting it.');
-    if(storagePath && !(storagePath in this.pathKeys)) return
+    if(storagePath && !(this.pathKeys.includes(storagePath))) return
     const path = this.computeKey(key);
     const item = JSON.stringify(value);
     this.store.setItem(path, item);
