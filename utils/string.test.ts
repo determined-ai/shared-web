@@ -148,13 +148,13 @@ describe('String Utilities', () => {
 
     it('parse string into semantic versions', () => {
       cases.forEach(({ str, parsed }) => {
-        expect(utils.stringToVersion(str)).toBe(parsed);
+        expect(utils.stringToVersion(str)).toStrictEqual(parsed);
       });
     });
 
     it('convert semantic version to string', () => {
       cases.forEach(({ str, parsed }) => {
-        expect(utils.versionToString(parsed)).toBe(str);
+        expect(utils.versionToString(parsed)).toStrictEqual(str);
       });
     });
   });
