@@ -69,7 +69,7 @@ export class Storage {
   }
 
   remove(key: string, storagePath?: string): void {
-    if(storagePath && this.getStoragePath() !== storagePath) return
+    if(storagePath && this.getStoragePath() !== storagePath) return;
     const path = this.computeKey(key);
     this.store.removeItem(path);
   }
@@ -77,7 +77,7 @@ export class Storage {
   set<T>(key: string, value: T, storagePath?: string): void {
     if (value == null) throw new Error('Cannot set to a null or undefined value.');
     if (value instanceof Set) throw new Error('Convert the value to an Array before setting it.');
-    if(storagePath && this.getStoragePath() !== storagePath) return
+    if(storagePath && this.getStoragePath() !== storagePath) return;
     const path = this.computeKey(key);
     const item = JSON.stringify(value);
     this.store.setItem(path, item);
@@ -116,7 +116,7 @@ export class Storage {
   }
 
   getStoragePath(): string {
-    return this.computeKey('').slice(0, -1) // because the last char is the delimiter 
+    return this.computeKey('').slice(0, -1); // because the last char is the delimiter 
   }
 
   private computeKey(key: string): string {
