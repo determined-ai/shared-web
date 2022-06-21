@@ -69,7 +69,7 @@ export class Storage {
   }
 
   remove(key: string, storagePath?: string): void {
-    if(storagePath && !(storagePath in this.pathKeys)) return
+    if(storagePath && this.getStoragePath() !== storagePath) return
     const path = this.computeKey(key);
     this.store.removeItem(path);
   }
