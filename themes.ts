@@ -5,6 +5,7 @@ const STRONG_WEAK_DELTA = 45;
 export const getCssVar = (name: string): string => {
   return window.getComputedStyle(document.body)?.getPropertyValue(name);
 };
+
 const generateStrongWeak = (theme: Theme): Theme => {
   const rgbaStrong = str2rgba(theme.strong);
   const rgbaWeak = str2rgba(theme.weak);
@@ -25,6 +26,7 @@ const generateStrongWeak = (theme: Theme): Theme => {
 
   return theme as Theme;
 };
+
 const themeBase = {
   // Font styles.
   fontFamily: '"Objektiv Mk3", Arial, Helvetica, sans-serif',
@@ -149,6 +151,7 @@ const themeBase = {
   statusWarningOnStrong: undefined,
   statusWarningOnWeak: undefined,
 };
+
 const themeLight = {
   // Palette colors for strong/weak calculations.
   strong: 'rgba(0, 0, 0, 1.0)',
@@ -187,6 +190,7 @@ const themeLight = {
   elevationStrong: '0px 12px 24px rgba(0, 0, 0, 0.12)',
   elevationWeak: '0px 2px 4px rgba(0, 0, 0, 0.24)',
 };
+
 const themeDark = {
   // Palette colors for strong/weak calculations.
   strong: 'rgba(255, 255, 255, 1.0)',
@@ -225,16 +229,20 @@ const themeDark = {
   elevationStrong: '0px 12px 24px rgba(0, 0, 0, 0.12)',
   elevationWeak: '0px 2px 4px rgba(0, 0, 0, 0.24)',
 };
+
 export const themeLightDetermined: Theme =
   generateStrongWeak(Object.assign({}, themeBase, themeLight));
 export const themeDarkDetermined: Theme =
   generateStrongWeak(Object.assign({}, themeBase, themeDark));
 const themeHpe = { brand: 'rgba(1, 169, 130, 1.0)' };
+
 export const themeLightHpe: Theme =
   generateStrongWeak(Object.assign({}, themeBase, themeLight, themeHpe));
 export const themeDarkHpe: Theme =
   generateStrongWeak(Object.assign({}, themeBase, themeDark, themeHpe));
+
 export type Theme = Record<keyof typeof themeBase, string>;
+
 export const globalCssVars = {
   animationCurve: '0.2s cubic-bezier(0.785, 0.135, 0.15, 0.86)',
 
