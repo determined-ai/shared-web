@@ -116,7 +116,7 @@ export class Storage {
   }
 
   getStoragePath(): string {
-    return this.computeKey('').slice(0, -1); // because the last char is the delimiter 
+    return this.computeKey('').slice(0, -1); // because the last char is the delimiter
   }
 
   private computeKey(key: string): string {
