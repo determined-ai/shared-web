@@ -24,7 +24,7 @@ jobs:
     steps:
       - checkout
       - install-python
-      - run: ./bin/test.py --repos core
+      - run: ./bin/test.py --repos core --sw-hash $CIRCLE_SHA1
 
 # Orchestrate our job run sequence
 workflows:
