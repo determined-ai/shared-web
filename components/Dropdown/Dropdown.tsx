@@ -24,8 +24,6 @@ interface Props {
   hide?: boolean;
   initVisible?: boolean;
   offset?: { x: number, y: number };
-  /** to set hide prop from parent component state to false */
-  onShow?: () => void;
   onVisibleChange?: (visible: boolean) => void;
   placement?: Placement;
   showArrow?: boolean;
@@ -36,7 +34,6 @@ const Dropdown: React.FC<Props> = ({
   offset = { x: 0, y: 0 },
   hide,
   initVisible = false,
-  onShow,
   onVisibleChange,
   placement = Placement.BottomLeft,
   showArrow = true,
@@ -157,10 +154,8 @@ const Dropdown: React.FC<Props> = ({
   useEffect(() => {
     if (hide && isVisible) {
       setIsVisible(false);
-    } else if (onShow) {
-      onShow();
     }
-  }, [ hide, isVisible, onShow ]);
+  }, [ hide, isVisible ]);
 
   return (
     <div className={classes.join(' ')}>
