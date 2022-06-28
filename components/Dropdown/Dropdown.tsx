@@ -20,7 +20,7 @@ export enum Placement {
 interface Props {
   content: React.ReactNode;
   disableAutoDismiss?: boolean;
-  /** to hide dropdown with parent component state */
+  /** hide dropdown with parent component state */
   hide?: boolean;
   initVisible?: boolean;
   offset?: { x: number, y: number };
