@@ -39,7 +39,7 @@ const getColor = (name = '', darkLight: DarkLight): string => {
 };
 
 const Avatar: React.FC<Props> = (
-  { noColor, square, hideTooltip, large, displayName, darkLight },
+  { noColor, square, className, hideTooltip, large, displayName, darkLight },
 ) => {
   const style = {
     backgroundColor: noColor ? 'var(--theme-stage-strong)' : getColor(displayName, darkLight),
@@ -48,7 +48,7 @@ const Avatar: React.FC<Props> = (
   const classes = [ css.base ];
 
   if (large) classes.push(css.large);
-
+  if (className) classes.push(className);
   const avatar = (
     <div className={classes.join(' ')} id="avatar" style={style}>
       {getInitials(displayName)}
