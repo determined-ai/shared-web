@@ -157,6 +157,14 @@ def get_user_inputs():
         if args.sw_hash:
             raise argparse.ArgumentError(None,
                                      '--sw-hash cannot be used with --test-local')
+        # best effort check to make sure we're running in the right directory
+        # check these files and directories exist in the current directory
+        to_check = ['types.ts', 'bin', 'Makefile', 'components', 'configs']
+        for f in to_check:
+            if not pathlib.Path(f).exists():
+                raise argparse.ArgumentError(None, 'it looks like this is not running from ' +
+                                             f'shared-web root: {f} does not exist')
+
 
     return args, repos_to_test, sw_hash
 
