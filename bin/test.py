@@ -129,7 +129,8 @@ def get_user_inputs():
     """
     parser.add_argument('--sw-hash', help='desired shared-web githash to test with')
     parser.add_argument('--test-local',
-                        help='test the repositories with the current shared code',
+                        help='test the repositories with the current shared code' +
+                        'This must be run from the shared-web root',
                         action='store_true', default=False)
     parser.add_argument('--repos',
                         help=f'repos to test. available: {", ".join(repos.keys())}',
@@ -156,10 +157,6 @@ def get_user_inputs():
         if args.sw_hash:
             raise argparse.ArgumentError(None,
                                      '--sw-hash cannot be used with --test-local')
-        dir_name = pathlib.Path.cwd().name
-        if dir_name != 'shared' and dir_name != 'shared-web':
-            raise argparse.ArgumentError(None,
-                                         '--test-local must be run from the shared directory root')
 
     return args, repos_to_test, sw_hash
 
