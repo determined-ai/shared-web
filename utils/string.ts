@@ -19,6 +19,7 @@ export const camelCaseToKebab = (text: string): string => {
   }).join('');
 };
 
+// hi
 export const camelCaseToSentence = (text: string): string => {
   const result = text.trim().replace(/([A-Z])/g, ' $1');
   return result.charAt(0).toUpperCase() + result.slice(1);
