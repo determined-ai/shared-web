@@ -108,6 +108,20 @@ describe('Data Utilities', () => {
     });
   });
 
+  describe('isEqualSet', () => {
+    it('should not care about order of items', () => {
+      const a = new Set([ 'a', 'b', 'c' ]);
+      const b = new Set([ 'a', 'c', 'b' ]);
+      expect(utils.isEqualSet(a, b)).toBe(true);
+    });
+    it('should defer to isEqual for sets of non primitive items', () => {
+      const obj = { a: 3 };
+      const a = new Set([ obj ]);
+      const b = new Set([ { ...obj } ]);
+      expect(utils.isEqualSet(a, b)).toBe(true);
+    });
+  });
+
   describe('isEqual', () => {
     const tests = [
       { input: [ object, object ], output: true },
