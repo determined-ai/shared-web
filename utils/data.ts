@@ -37,6 +37,17 @@ export const isSyncFunction = (fn: unknown): boolean => {
   return isFunction(fn) && !isAsyncFunction(fn);
 };
 
+/** check set equality faster than the general isEqual. */
+export const isEqualSet = (a: Set<unknown>, b: Set<unknown>): boolean => {
+  if (a.size !== b.size) return false;
+  for (const item of a) {
+    // if the set contains non premitive values, we need to use `isEqual`
+    if (!isPrimitive(item)) return isEqual(a, b);
+    if (!b.has(item)) return false;
+  }
+  return true;
+};
+
 export const isEqual = (a: unknown, b: unknown): boolean => {
   if ((isMap(a) || isSet(b)) && (isMap(b) || isSet(b))) {
     return JSON.stringify(Array.from(a as any)) === JSON.stringify(Array.from(b as any));
