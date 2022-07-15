@@ -194,6 +194,7 @@ describe('Data Utilities', () => {
 
     // eslint-disable-next-line jest/no-disabled-tests
     it.skip('should not care about order of items for sets', () => {
+      // TODO(DET-7822) add support for this behavior.
       const a = new Set([ 'a', 'b', 'c' ]);
       const b = new Set([ 'a', 'c', 'b' ]);
       expect(utils.isEqual(a, b)).toBe(true);
