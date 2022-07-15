@@ -57,9 +57,6 @@ export const isEqualSetPrimitive = (a: Set<unknown>, b: Set<unknown>): boolean =
 };
 
 export const isEqual = (a: unknown, b: unknown): boolean => {
-  // if (isSet(a) && isSet(b)) {
-  //   return isEqual(Array.from(a).sort(), Array.from(b).sort());
-  // }
   if ((isMap(a) || isSet(b)) && (isMap(b) || isSet(b))) {
     return JSON.stringify(Array.from(a as any)) === JSON.stringify(Array.from(b as any));
   }
