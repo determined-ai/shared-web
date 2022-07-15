@@ -37,16 +37,6 @@ export const isSyncFunction = (fn: unknown): boolean => {
   return isFunction(fn) && !isAsyncFunction(fn);
 };
 
-export const isEqualSet = (a: Set<unknown>, b: Set<unknown>): boolean => {
-  if (a.size !== b.size) return false;
-  for (const item of a) {
-    // if the set contains non premitive values, we need to use `isEqual`
-    if (!isPrimitive(item)) return isEqual(a, b);
-    if (!b.has(item)) return false;
-  }
-  return true;
-};
-
 /** check set equality fast but supporting only primitive set items. */
 export const isEqualSetPrimitive = (a: Set<unknown>, b: Set<unknown>): boolean => {
   if (a.size !== b.size) return false;
