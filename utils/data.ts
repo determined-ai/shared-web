@@ -23,7 +23,7 @@ export const isPromise = (data: unknown): data is Promise<unknown> => {
   if (!isObject(data)) return false;
   return typeof (data as { then?: any }).then === 'function';
 };
-export const isSet = (data: unknown): boolean => data instanceof Set;
+export const isSet = (data: unknown): data is Set<unknown> => data instanceof Set;
 export const isString = (data: unknown): data is string => typeof data === 'string';
 export const isSymbol = (data: unknown): data is symbol => typeof data === 'symbol';
 export const isFunction = (fn: unknown): boolean => typeof fn === 'function';
@@ -37,7 +37,6 @@ export const isSyncFunction = (fn: unknown): boolean => {
   return isFunction(fn) && !isAsyncFunction(fn);
 };
 
-/** check set equality faster than the general isEqual. */
 export const isEqualSet = (a: Set<unknown>, b: Set<unknown>): boolean => {
   if (a.size !== b.size) return false;
   for (const item of a) {
@@ -48,7 +47,19 @@ export const isEqualSet = (a: Set<unknown>, b: Set<unknown>): boolean => {
   return true;
 };
 
+/** check set equality fast but supporting only primitive set items. */
+export const isEqualSetPrimitive = (a: Set<unknown>, b: Set<unknown>): boolean => {
+  if (a.size !== b.size) return false;
+  for (const item of a) {
+    if (!b.has(item)) return false;
+  }
+  return true;
+};
+
 export const isEqual = (a: unknown, b: unknown): boolean => {
+  // if (isSet(a) && isSet(b)) {
+  //   return isEqual(Array.from(a).sort(), Array.from(b).sort());
+  // }
   if ((isMap(a) || isSet(b)) && (isMap(b) || isSet(b))) {
     return JSON.stringify(Array.from(a as any)) === JSON.stringify(Array.from(b as any));
   }

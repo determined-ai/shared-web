@@ -108,17 +108,18 @@ describe('Data Utilities', () => {
     });
   });
 
-  describe('isEqualSet', () => {
+  describe('isEqualSetPrimitive', () => {
     it('should not care about order of items', () => {
       const a = new Set([ 'a', 'b', 'c' ]);
       const b = new Set([ 'a', 'c', 'b' ]);
-      expect(utils.isEqualSet(a, b)).toBe(true);
+      expect(utils.isEqualSetPrimitive(a, b)).toBe(true);
     });
-    it('should defer to isEqual for sets of non primitive items', () => {
+
+    it('should fail on checking non primitive items', () => {
       const obj = { a: 3 };
       const a = new Set([ obj ]);
       const b = new Set([ { ...obj } ]);
-      expect(utils.isEqualSet(a, b)).toBe(true);
+      expect(utils.isEqualSetPrimitive(a, b)).toBe(false);
     });
   });
 
@@ -190,6 +191,14 @@ describe('Data Utilities', () => {
         () => expect(utils.isEqual(a, b)).toBe(test.output),
       );
     });
+
+    // eslint-disable-next-line jest/no-disabled-tests
+    it.skip('should not care about order of items for sets', () => {
+      const a = new Set([ 'a', 'b', 'c' ]);
+      const b = new Set([ 'a', 'c', 'b' ]);
+      expect(utils.isEqual(a, b)).toBe(true);
+    });
+
   });
 
   describe('clone', () => {
