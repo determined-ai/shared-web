@@ -19,25 +19,25 @@ class Logger implements LoggerInterface {
     this.namespace = namespace;
   }
 
-  debug(msg: unknown): void {
-    this.logWithLevel(Level.Debug, msg);
+  debug(...msg: unknown[]): void {
+    this.logWithLevel(Level.Debug, ...msg);
   }
 
-  trace(msg: unknown): void {
-    this.logWithLevel(Level.Trace, msg);
+  trace(...msg: unknown[]): void {
+    this.logWithLevel(Level.Trace, ...msg);
   }
 
-  error(msg: unknown): void {
-    this.logWithLevel(Level.Error, msg);
+  error(...msg: unknown[]): void {
+    this.logWithLevel(Level.Error, ...msg);
   }
 
-  warn(msg: unknown): void {
-    this.logWithLevel(Level.Warn, msg);
+  warn(...msg: unknown[]): void {
+    this.logWithLevel(Level.Warn, ...msg);
   }
 
-  private logWithLevel(level: Level, msg: unknown): void {
+  private logWithLevel(level: Level, ...msg: unknown[]): void {
     /* eslint-disable-next-line no-console */
-    console[level](`[${this.namespace}]`, msg);
+    console[level](`[${this.namespace}]`, ...msg);
   }
 }
 
