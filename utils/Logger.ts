@@ -12,11 +12,23 @@ export interface LoggerInterface {
   warn(...msg: unknown[]): void;
 }
 
+type LogPredicate = (namespace: string, level: Level) => boolean;
+
 class Logger implements LoggerInterface {
   private namespace: string;
+  private isVisible: LogPredicate;
 
   constructor(namespace: string) {
     this.namespace = namespace;
+    this.isVisible = () => true;
+  }
+
+  /**
+   * set the logic to either determine whether to log each
+   * message to console or not.
+  */
+  setVisibility(predicate: LogPredicate): void {
+    this.isVisible = predicate;
   }
 
   debug(...msg: unknown[]): void {
@@ -36,6 +48,7 @@ class Logger implements LoggerInterface {
   }
 
   private logWithLevel(level: Level, ...msg: unknown[]): void {
+    if (!this.isVisible(this.namespace, level)) return;
     /* eslint-disable-next-line no-console */
     console[level](`[${this.namespace}]`, ...msg);
   }
