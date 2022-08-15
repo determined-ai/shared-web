@@ -6,10 +6,10 @@ enum Level {
 }
 
 export interface LoggerInterface {
-  debug(msg: unknown): void;
-  error(msg: unknown): void;
-  trace(msg: unknown): void;
-  warn(msg: unknown): void;
+  debug(...msg: unknown[]): void;
+  error(...msg: unknown[]): void;
+  trace(...msg: unknown[]): void;
+  warn(...msg: unknown[]): void;
 }
 
 class Logger implements LoggerInterface {
