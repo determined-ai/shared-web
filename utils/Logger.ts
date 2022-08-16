@@ -24,7 +24,7 @@ class Logger implements LoggerInterface {
   }
 
   /**
-   * set the logic to either determine whether to log each
+   * set the logic to determine whether to log each
    * message to console or not.
   */
   setVisibility(predicate: LogPredicate): void {
