@@ -6,6 +6,7 @@ const LIB_NAME = 'det';
 enum Level {
   Debug = 'debug',
   Error = 'error',
+  Info = 'info',
   Trace = 'trace',
   Warn = 'warn',
 }
@@ -24,6 +25,7 @@ const getLogger = (namespace: string, level: Level) => {
 export interface LoggerInterface {
   debug(...msg: unknown[]): void;
   error(...msg: unknown[]): void;
+  info(...msg: unknown[]): void;
   trace(...msg: unknown[]): void;
   warn(...msg: unknown[]): void;
 }
@@ -44,7 +46,7 @@ class Logger implements LoggerInterface {
     // debugger;
   }
 
-  extend(namespace: string): LoggerInterface {
+  extend(namespace: string): Logger {
     return new Logger(`${this.namespace}/${namespace}`);
   }
 
@@ -62,6 +64,10 @@ class Logger implements LoggerInterface {
 
   trace(...msg: unknown[]): void {
     this.logWithLevel(Level.Trace, ...msg);
+  }
+
+  info(...msg: unknown[]): void {
+    this.logWithLevel(Level.Info, ...msg);
   }
 
   error(...msg: unknown[]): void {
