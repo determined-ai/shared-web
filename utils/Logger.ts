@@ -1,7 +1,7 @@
 import { debug } from 'debug';
 
 /** eslint-disable-next-line: no-console */
-const LIB_NAME = 'DET';
+const LIB_NAME = 'det';
 
 enum Level {
   Debug = 'debug',
@@ -30,6 +30,10 @@ export interface LoggerInterface {
 
 type LogPredicate = (namespace: string, level: Level) => boolean;
 
+/**
+ * log filtering is controlled by localStorage.debug.
+ * read more on: https://github.com/debug-js/debug#usage
+ */
 class Logger implements LoggerInterface {
   private namespace: string;
   private isVisible: LogPredicate;
@@ -48,7 +52,7 @@ class Logger implements LoggerInterface {
    * set the logic to determine whether to log each
    * message to console or not.
   */
-  setVisibility(predicate: LogPredicate): void {
+  setVisibility(predicate: LogPredicate): void { // TODO remove me?
     this.isVisible = predicate;
   }
 
