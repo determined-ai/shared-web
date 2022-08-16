@@ -1,7 +1,7 @@
 import { debug } from 'debug';
 
-/** eslint-disable-next-line: no-console */
 const LIB_NAME = 'det';
+export const NAMEPACE_SEPARATOR = '/';
 
 enum Level {
   Debug = 'debug',
@@ -47,7 +47,7 @@ class Logger implements LoggerInterface {
   }
 
   extend(namespace: string): Logger {
-    return new Logger(`${this.namespace}/${namespace}`);
+    return new Logger(`${this.namespace}${NAMEPACE_SEPARATOR}${namespace}`);
   }
 
   /**
@@ -81,7 +81,6 @@ class Logger implements LoggerInterface {
   private logWithLevel(level: Level, ...msg: unknown[]): void {
     if (!this.isVisible(this.namespace, level)) return;
     // TODO: set up and persist loggers.
-    // log(`${LIB_NAME}/${this.namespace}:${level}`, ...msg);
     getLogger(this.namespace, level)(...msg);
   }
 }
