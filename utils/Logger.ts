@@ -1,9 +1,20 @@
+import debug from 'debug';
+
 enum Level {
   Debug = 'debug',
   Error = 'error',
   Trace = 'trace',
   Warn = 'warn',
 }
+
+// enum LogBackend {
+//   Console,
+//   Debug,
+// }
+
+const getLogger = (namespace: string, level: Level) => {
+  return debug(`${namespace}:${level}`);
+};
 
 export interface LoggerInterface {
   debug(...msg: unknown[]): void;
@@ -49,8 +60,7 @@ class Logger implements LoggerInterface {
 
   private logWithLevel(level: Level, ...msg: unknown[]): void {
     if (!this.isVisible(this.namespace, level)) return;
-    /* eslint-disable-next-line no-console */
-    console[level](`[${this.namespace}]`, ...msg);
+    getLogger(this.namespace, level).log(...msg);
   }
 }
 
