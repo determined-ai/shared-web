@@ -1,5 +1,10 @@
 import debug from 'debug';
 
+/** eslint-disable-next-line: no-console */
+// debug.log = console.log.bind(console);
+debug.enable('*');
+debug.log('hello world');
+
 enum Level {
   Debug = 'debug',
   Error = 'error',
@@ -13,7 +18,9 @@ enum Level {
 // }
 
 const getLogger = (namespace: string, level: Level) => {
-  return debug(`${namespace}:${level}`);
+  const logger = debug(`${namespace}:${level}`);
+  logger.log.bind(console);
+  return logger;
 };
 
 export interface LoggerInterface {
@@ -59,8 +66,12 @@ class Logger implements LoggerInterface {
   }
 
   private logWithLevel(level: Level, ...msg: unknown[]): void {
-    if (!this.isVisible(this.namespace, level)) return;
-    getLogger(this.namespace, level).log(...msg);
+    // if (!this.isVisible(this.namespace, level)) return;
+    // TODO: set up and persist loggers.
+    console.log('logger', this.namespace, level, msg);
+    getLogger(this.namespace, level)
+      // .bind(console)
+      .log(...msg);
   }
 }
 
