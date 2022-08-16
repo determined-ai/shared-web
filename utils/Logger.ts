@@ -1,9 +1,7 @@
-import debug from 'debug';
+import { debug } from 'debug';
 
 /** eslint-disable-next-line: no-console */
-// debug.log = console.log.bind(console);
-debug.enable('*');
-debug.log('hello world');
+const LIB_NAME = 'DET';
 
 enum Level {
   Debug = 'debug',
@@ -19,8 +17,8 @@ enum Level {
 
 const getLogger = (namespace: string, level: Level) => {
   const logger = debug(`${namespace}:${level}`);
-  logger.log.bind(console);
-  return logger;
+  // debug doesn't seem to match the advertised type definition.
+  return logger as (...args: unknown[]) => void;
 };
 
 export interface LoggerInterface {
@@ -39,6 +37,11 @@ class Logger implements LoggerInterface {
   constructor(namespace: string) {
     this.namespace = namespace;
     this.isVisible = () => true;
+    // debugger;
+  }
+
+  extend(namespace: string): LoggerInterface {
+    return new Logger(`${this.namespace}/${namespace}`);
   }
 
   /**
@@ -66,13 +69,13 @@ class Logger implements LoggerInterface {
   }
 
   private logWithLevel(level: Level, ...msg: unknown[]): void {
-    // if (!this.isVisible(this.namespace, level)) return;
+    if (!this.isVisible(this.namespace, level)) return;
     // TODO: set up and persist loggers.
-    console.log('logger', this.namespace, level, msg);
-    getLogger(this.namespace, level)
-      // .bind(console)
-      .log(...msg);
+    // log(`${LIB_NAME}/${this.namespace}:${level}`, ...msg);
+    getLogger(this.namespace, level)(...msg);
   }
 }
 
-export default Logger;
+const rootLogger = new Logger(LIB_NAME);
+
+export default rootLogger;
