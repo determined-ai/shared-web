@@ -28,7 +28,7 @@ const generateNamespace = (parts: string[], separator = NAMEPACE_SEPARATOR) => {
 const getLogger = (namespace: string, level: Level) => {
   const logger = debug(`${namespace}:${level}`);
   // debug doesn't seem to match the advertised type definition.
-  return logger as (...args: unknown[]) => void;
+  return logger as (...msg: unknown[]) => void;
 };
 
 export interface LoggerInterface {
