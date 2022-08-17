@@ -3,12 +3,17 @@ import { debug } from 'debug';
 const LIB_NAME = 'det';
 export const NAMEPACE_SEPARATOR = '/';
 
+/**
+ * Log levels in order of serverity (low to high).
+ * Modeled after Syslog RFC 5424
+ * https://tools.ietf.org/html/rfc5424
+ */
 enum Level {
-  Debug = 'debug',
   Error = 'error',
-  Info = 'info',
-  Trace = 'trace',
   Warn = 'warn',
+  Info = 'info',
+  Debug = 'debug',
+  Trace = 'trace',
 }
 
 // enum LogBackend {
