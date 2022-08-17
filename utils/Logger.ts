@@ -21,6 +21,10 @@ enum Level {
 //   Debug,
 // }
 
+const generateNamespace = (parts: string[], separator = NAMEPACE_SEPARATOR) => {
+  return parts.join(separator);
+};
+
 const getLogger = (namespace: string, level: Level) => {
   const logger = debug(`${namespace}:${level}`);
   // debug doesn't seem to match the advertised type definition.
@@ -51,8 +55,8 @@ class Logger implements LoggerInterface {
     // debugger;
   }
 
-  extend(namespace: string): Logger {
-    return new Logger(`${this.namespace}${NAMEPACE_SEPARATOR}${namespace}`);
+  extend(...namespace: string[]): Logger {
+    return new Logger(generateNamespace([ this.namespace, ...namespace ]));
   }
 
   /**
