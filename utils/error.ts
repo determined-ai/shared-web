@@ -71,6 +71,7 @@ export class DetError extends Error implements DetErrorOptions {
     const message = options.publicSubject || options.publicMessage || defaultMessage;
     super(message);
 
+    /** DetError options that we can derive from the given error. */
     const eOpts: DetErrorOptions = isDetError(e) ? {
       id: e.id,
       isUserTriggered: e.isUserTriggered,
@@ -81,7 +82,7 @@ export class DetError extends Error implements DetErrorOptions {
       publicSubject: e.publicSubject,
       silent: e.silent,
       type: e.type,
-    } : {};
+    } : { publicMessage: message };
 
     this.loadOptions({ ...defaultErrOptions, ...eOpts, ...options });
     this.isHandled = false;
