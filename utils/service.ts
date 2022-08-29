@@ -21,6 +21,10 @@ export const getResponseStatus = (e: unknown): number | undefined =>
  * @returns
  */
 export const isAuthFailure = (u: unknown, supportExternalAuth = false): boolean => {
+  if (u instanceof DetError) {
+    if (u.type === ErrorType.Auth) return true;
+    if (u.sourceErr !== undefined) return isAuthFailure(u.sourceErr, supportExternalAuth);
+  }
   if (!isApiResponse(u)) return false;
   const status = u.status;
   const authFailureStatuses = [
