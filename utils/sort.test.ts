@@ -137,7 +137,7 @@ describe('sort utility', () => {
   });
 
   describe('sortVersions', () => {
-    const tests = [{ input: ['1.2.3', '1.2.4'], output: ['1.2.4', '1.2.3'] }];
+    const tests = [{ input: ['1.2.3', '1.2.4', '1.2.4.rc1', '1.2.4.rc2'], output: ['1.2.4', '1.2.4.rc2', '1.2.4.rc1', '1.2.3'] }];
     tests.forEach((t) => {
       it('should sort latest first', () => {
         expect(sorters.sortVersions(t.input.map(stringToVersion))).toStrictEqual(

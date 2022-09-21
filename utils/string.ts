@@ -117,15 +117,17 @@ export const truncate = (str: string, maxLength = 20, suffix = '...'): string =>
 
 /** convert semantic version to its string representation */
 export const versionToString = (version: SemanticVersion): string => {
-  return `${version.major}.${version.minor}.${version.patch}`;
+  const str = `${version.major}.${version.minor}.${version.patch}`;
+  return version.suffix ? `${str}.${version.suffix}` : str;
 };
 /** parse the string representation of a semantic version */
 export const stringToVersion = (version: string): SemanticVersion => {
-  const [major, minor, patch] = version.split('.');
+  const [major, minor, patch, suffix] = version.split('.');
   return {
     major: parseInt(major),
     minor: parseInt(minor),
     patch: parseInt(patch),
+    suffix,
   };
 };
 

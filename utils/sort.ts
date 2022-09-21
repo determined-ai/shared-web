@@ -80,7 +80,9 @@ export const semVerIsOlder = (a: SemanticVersion, b: SemanticVersion): boolean =
   return (
     a.major < b.major ||
     (a.major === b.major && a.minor < b.minor) ||
-    (a.major === b.major && a.minor === b.minor && a.patch < b.patch)
+    (a.major === b.major && a.minor === b.minor && a.patch < b.patch) ||
+    (a.major === b.major && a.minor === b.minor && a.patch === b.patch && (a.suffix ?? '') < (b.suffix ?? ''))
+    // FIXME: 1. comparing ver that has suffix vs ver that doesn't have suffix. 2. alpha, beta, etc
   );
 };
 

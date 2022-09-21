@@ -152,11 +152,14 @@ describe('String Utilities', () => {
       { parsed: [1, 0, 0], str: '1.0.0' },
       { parsed: [0, 1, 0], str: '0.1.0' },
       { parsed: [23, 0, 1], str: '23.0.1' },
+      { parsed: [23, 0, 1, 'rc2'], str: '23.0.1.rc2' },
+      { parsed: [23, 0, 1, '2'], str: '23.0.1.2' },
     ].map(({ str, parsed }) => ({
       parsed: {
-        major: parsed[0],
-        minor: parsed[1],
-        patch: parsed[2],
+        major: parsed[0] as number,
+        minor: parsed[1] as number,
+        patch: parsed[2] as number,
+        suffix: parsed.length > 3 ? parsed[3] as string : undefined,
       },
       str,
     }));

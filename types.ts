@@ -92,4 +92,6 @@ export interface SemanticVersion {
   major: number;
   minor: number;
   patch: number;
+  /** anything other than major.minor.patch */
+  suffix?: string;
 }
